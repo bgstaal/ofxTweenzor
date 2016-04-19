@@ -14,6 +14,7 @@
 #include "ofVec2f.h"
 #include "Tween.h"
 #include "TweenEvent.h"
+#include "ofParameterTween.h"
 
 typedef struct _tweenParams {
 	_tweenParams() {
@@ -95,8 +96,59 @@ public:
     static void add(ofVec3f* a_vec, const ofVec3f& v_begin, const ofVec3f& v_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0);
     static void add(ofVec4f* a_vec, const ofVec4f& v_begin, const ofVec4f& v_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0);
     static void add(ofRectangle* a_rect, const ofRectangle& r_begin, const ofRectangle& r_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0);
-    
-    
+	
+	
+
+	template <typename T>
+	static void add(ofParameter<T> *a_param, T a_begin, T a_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0) {
+		removeCompleteListener( a_param );
+		removeTween( a_param );
+		cout << "add param tween" << endl;
+		shared_ptr<ofParameterTween<T> > tweenzlebob = shared_ptr<ofParameterTween<T> >( new ofParameterTween<T>(a_param, __instance->_currMillis, a_begin, a_end, a_delay, a_duration, a_easeType, a_p, a_a ));
+		__instance->_tweens.push_back( tweenzlebob );
+	};
+
+	template <typename T>
+	static void removeCompleteListener( ofParameter<T> *a_param ) {
+		removeCompleteListener( getTween(a_param) );
+	}
+	
+	template <typename T>
+	static void removeTween( ofParameter<T> *a_param ) {
+		if (__instance->_tweens.size() > 0) {
+			int i = 0;
+			vector<shared_ptr<Tween> >::iterator iter;
+			for ( iter=__instance->_tweens.begin(); iter < __instance->_tweens.end(); iter++ )
+			{
+				shared_ptr<Tween> it = *iter;
+				ofParameterTween<T> *tween = dynamic_cast<ofParameterTween<T> *>(it.get());
+				if (tween && tween->_param == a_param) {
+					//cout << "Tweenzor :: removeTween : property = " <<  it->getProperty() << " = " << a_property << endl;
+					it->remove();
+					__instance->_tweens.erase( iter );
+					cout << "removeTween " << *a_param << endl;
+					break;
+				}
+				i++;
+			}
+			
+		}
+	}
+	
+	template <typename T>
+	static Tween* getTween( ofParameter<T> *a_param ) {
+		vector<shared_ptr<Tween> >::iterator iter;
+		for ( iter=__instance->_tweens.begin(); iter < __instance->_tweens.end(); iter++ ) {
+			shared_ptr<Tween> &it = *iter;
+			ofParameterTween<T> *tw = dynamic_cast<ofParameterTween<T> *>(it.get());
+			if(tw && tw->_param == a_param) {
+				cout << "get tween " << *a_param << endl;
+				return tw;
+			}
+		}
+		return NULL;
+	}
+	
 	//static void add(vector <TweenObject> a_properties, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0);
 	static void add( TweenParams& a_params );
 	static void add( vector<TweenParams>& a_params );
@@ -157,7 +209,7 @@ protected:
 	
 private:
 	static Tweenzor* __instance;
-	vector <Tween> _tweens;
+	vector <shared_ptr<Tween> > _tweens;
 	vector< TweenEv > _events;
 	
 	unsigned int _eventIndex;

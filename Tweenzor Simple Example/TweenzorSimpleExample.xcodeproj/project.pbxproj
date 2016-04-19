@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AA3005C1CC6120E0087A157 /* ofParameterTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AA3005B1CC6120E0087A157 /* ofParameterTween.cpp */; };
 		2E4E71A71A1BE396008BB20A /* Tween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E71A01A1BE396008BB20A /* Tween.cpp */; };
 		2E4E71A81A1BE396008BB20A /* Tweenzor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E71A51A1BE396008BB20A /* Tweenzor.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
@@ -62,6 +63,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1AA3005B1CC6120E0087A157 /* ofParameterTween.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofParameterTween.cpp; sourceTree = "<group>"; };
+		1ABD2D671CC58B29007BB3E3 /* ofParameterTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofParameterTween.h; sourceTree = "<group>"; };
 		2E4E719F1A1BE396008BB20A /* ofxTweenzor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTweenzor.h; sourceTree = "<group>"; };
 		2E4E71A01A1BE396008BB20A /* Tween.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tween.cpp; sourceTree = "<group>"; };
 		2E4E71A11A1BE396008BB20A /* Tween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tween.h; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 				2E4E71A41A1BE396008BB20A /* TweenSelector.h */,
 				2E4E71A51A1BE396008BB20A /* Tweenzor.cpp */,
 				2E4E71A61A1BE396008BB20A /* Tweenzor.h */,
+				1ABD2D671CC58B29007BB3E3 /* ofParameterTween.h */,
+				1AA3005B1CC6120E0087A157 /* ofParameterTween.cpp */,
 			);
 			name = src;
 			path = ../src;
@@ -325,6 +330,7 @@
 				2E4E71A71A1BE396008BB20A /* Tween.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
+				1AA3005C1CC6120E0087A157 /* ofParameterTween.cpp in Sources */,
 				2E4E71A81A1BE396008BB20A /* Tweenzor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +418,7 @@
 		E4B69B600A3A1757003C02F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
@@ -422,8 +429,9 @@
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = TweenzorSimpleExampleDebug;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -431,6 +439,7 @@
 		E4B69B610A3A1757003C02F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
@@ -441,8 +450,9 @@
 				"ICON_FILE[arch=*]" = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = TweenzorSimpleExample;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

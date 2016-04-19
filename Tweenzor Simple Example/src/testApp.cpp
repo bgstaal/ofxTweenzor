@@ -24,6 +24,8 @@ void testApp::setup() {
 	
 	Tweenzor::add(&_x1, 200.f, 900.f, 0.f, 1.f);
 	
+	_param = 0.0f;
+	
 	// lets set the tween to repeat once
 	// it will run once and then repeat once
 	
@@ -36,10 +38,12 @@ void testApp::setup() {
 	// it will go begin value -> end value
 	// and then repeat begin value -> end value
 	
-	Tweenzor::getTween( &_x1 )->setRepeat( 1, true );
+	//Tweenzor::getTween( &_x1 )->setRepeat( 1, true );
 	// let's add a listener so we know when this tween is done //
 	Tweenzor::addCompleteListener( Tweenzor::getTween(&_x1), this, &testApp::onComplete);
 
+	
+	
 }
 
 //--------------------------------------------------------------
@@ -75,9 +79,13 @@ void testApp::onComplete(float* arg) {
 	Tweenzor::add( &_x8, _x8, _tarX, 0.f, 2.f, EASE_IN_OUT_ELASTIC );
 	Tweenzor::add( &_x9, _x9, _tarX, 0.f, 2.f, EASE_IN_OUT_BACK );
 	Tweenzor::add( &_x10, _x10, _tarX, 0.f, 2.f, EASE_IN_OUT_BOUNCE );
+	//Tweenzor::add<float>(&_param, (float)_param.get(), _tarX, 0.f, 2.f, EASE_LINEAR );
 	
-	
-	
+}
+
+void testApp::onParamsAnimComplete(float* arg)
+{
+	ofLog() << "params anim complete" << endl;
 }
 
 //--------------------------------------------------------------
@@ -104,7 +112,7 @@ void testApp::draw(){
 	ofDrawBitmapString("IN_OUT_BACK", 20, 447);
 	ofDrawBitmapString("IN_OUT_BOUNCE", 20, 497);
 	
-	ofDrawBitmapString("hit space to toggle all tweens\nhit r to reset tweens", 20, 550);
+	ofDrawBitmapString("hit space to toggle all tweens\nhit r to reset tweens", 20, 600);
 	
 	
 	ofSetColor(255, 0, 0);
@@ -118,6 +126,11 @@ void testApp::draw(){
 	ofCircle(_x8, 400, 10);
 	ofCircle(_x9, 450, 10);
 	ofCircle(_x10, 500, 10);
+	
+	stringstream ss;
+	ss << "ofParameter<ofFloatColor>: " << _paramColor;
+	//ss << "ofParameter<float>: " << _param;
+	ofDrawBitmapString(ss.str(), 20, 540);
 }
 
 //--------------------------------------------------------------
@@ -155,7 +168,9 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+	Tweenzor::add<float>(&_param, (float)_param.get(), ofRandom(100.0f), 0.f, 2.f, EASE_LINEAR );
+	Tweenzor::add<ofFloatColor>(&_paramColor, (ofFloatColor)_paramColor.get(), ofFloatColor(ofRandom(1.0f), ofRandom(1.0f), ofRandom(1.0f)), 0.f, 2.f, EASE_LINEAR );
+	Tweenzor::addCompleteListener( Tweenzor::getTween(&_param), this, &testApp::onParamsAnimComplete);
 }
 
 //--------------------------------------------------------------

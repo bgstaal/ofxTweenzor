@@ -22,8 +22,11 @@ public:
     void gotMessage(ofMessage msg);
     
     float _x1, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10;
+		ofParameter<float> _param;
+		ofParameter<ofFloatColor> _paramColor;
 	
 	bool paused;
 	
 	void onComplete(float* arg);
+	void onParamsAnimComplete(float* arg);
 };
