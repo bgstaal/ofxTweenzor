@@ -100,13 +100,14 @@ public:
 	
 
 	template <typename T>
-	static void addParameter(ofParameter<T> *a_param, T a_begin, T a_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0) {
-		removeCompleteListener( a_param );
-		removeParameterTween( a_param );
+	static void addParameter(ofParameter<T> a_param, T a_begin, T a_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0) {
+		//removeCompleteListener( a_param );
+		//removeParameterTween( a_param );
 		shared_ptr<ofParameterTween<T> > tweenzlebob = shared_ptr<ofParameterTween<T> >( new ofParameterTween<T>(a_param, __instance->_currMillis, a_begin, a_end, a_delay, a_duration, a_easeType, a_p, a_a ));
 		__instance->_tweens.push_back( tweenzlebob );
 	};
 
+	/*
 	template <typename T>
 	static void removeCompleteListener( ofParameter<T> *a_param ) {
 		removeCompleteListener( getTween(a_param) );
@@ -133,7 +134,7 @@ public:
 			
 		}
 	}
-	
+	 
 	template <typename T>
 	static Tween* getTween( ofParameter<T> *a_param ) {
 		vector<shared_ptr<Tween> >::iterator iter;
@@ -146,6 +147,7 @@ public:
 		}
 		return NULL;
 	}
+	 */
 	
 	//static void add(vector <TweenObject> a_properties, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0);
 	static void add( TweenParams& a_params );
