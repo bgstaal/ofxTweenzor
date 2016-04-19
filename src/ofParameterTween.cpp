@@ -12,7 +12,7 @@ template<>
 void ofParameterTween<ofFloatColor>::update(int a_millis)
 {
 	Tween::update(a_millis);
-	*_param = _begin.lerp(_end, _rat);
+	*_param = _begin.getLerped(_end, _rat);
 }
 
 template<>
