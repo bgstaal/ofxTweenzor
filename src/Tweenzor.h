@@ -100,10 +100,9 @@ public:
 	
 
 	template <typename T>
-	static void add(ofParameter<T> *a_param, T a_begin, T a_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0) {
+	static void addParameter(ofParameter<T> *a_param, T a_begin, T a_end, float a_delay, float a_duration, int a_easeType=EASE_LINEAR, float a_p=0, float a_a=0) {
 		removeCompleteListener( a_param );
-		removeTween( a_param );
-		cout << "add param tween" << endl;
+		removeParameterTween( a_param );
 		shared_ptr<ofParameterTween<T> > tweenzlebob = shared_ptr<ofParameterTween<T> >( new ofParameterTween<T>(a_param, __instance->_currMillis, a_begin, a_end, a_delay, a_duration, a_easeType, a_p, a_a ));
 		__instance->_tweens.push_back( tweenzlebob );
 	};
@@ -112,9 +111,10 @@ public:
 	static void removeCompleteListener( ofParameter<T> *a_param ) {
 		removeCompleteListener( getTween(a_param) );
 	}
+
 	
 	template <typename T>
-	static void removeTween( ofParameter<T> *a_param ) {
+	static void removeParameterTween( ofParameter<T> *a_param ) {
 		if (__instance->_tweens.size() > 0) {
 			int i = 0;
 			vector<shared_ptr<Tween> >::iterator iter;
@@ -126,7 +126,6 @@ public:
 					//cout << "Tweenzor :: removeTween : property = " <<  it->getProperty() << " = " << a_property << endl;
 					it->remove();
 					__instance->_tweens.erase( iter );
-					cout << "removeTween " << *a_param << endl;
 					break;
 				}
 				i++;
@@ -142,7 +141,6 @@ public:
 			shared_ptr<Tween> &it = *iter;
 			ofParameterTween<T> *tw = dynamic_cast<ofParameterTween<T> *>(it.get());
 			if(tw && tw->_param == a_param) {
-				cout << "get tween " << *a_param << endl;
 				return tw;
 			}
 		}

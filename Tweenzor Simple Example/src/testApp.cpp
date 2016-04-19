@@ -128,8 +128,8 @@ void testApp::draw(){
 	ofCircle(_x10, 500, 10);
 	
 	stringstream ss;
-	ss << "ofParameter<ofFloatColor>: " << _paramColor;
-	//ss << "ofParameter<float>: " << _param;
+	//ss << "ofParameter<ofFloatColor>: " << _paramColor;
+	ss << "ofParameter<float>: " << _param;
 	ofDrawBitmapString(ss.str(), 20, 540);
 }
 
@@ -168,8 +168,8 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	Tweenzor::add<float>(&_param, (float)_param.get(), ofRandom(100.0f), 0.f, 2.f, EASE_LINEAR );
-	Tweenzor::add<ofFloatColor>(&_paramColor, (ofFloatColor)_paramColor.get(), ofFloatColor(ofRandom(1.0f), ofRandom(1.0f), ofRandom(1.0f)), 0.f, 2.f, EASE_LINEAR );
+	Tweenzor::addParameter<float>(&_param, _param, ofRandom(100.0f), 0.f, 2.f, EASE_LINEAR );
+	Tweenzor::addParameter<ofFloatColor>(&_paramColor, (ofFloatColor)_paramColor.get(), ofFloatColor(ofRandom(1.0f), ofRandom(1.0f), ofRandom(1.0f)), 0.f, 2.f, EASE_LINEAR );
 	Tweenzor::addCompleteListener( Tweenzor::getTween(&_param), this, &testApp::onParamsAnimComplete);
 }
 
