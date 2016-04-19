@@ -168,9 +168,9 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	Tweenzor::addParameter<float>(_param, _param, ofRandom(100.0f), 0.f, 2.f, EASE_LINEAR );
-	Tweenzor::addParameter<ofFloatColor>(_paramColor, (ofFloatColor)_paramColor.get(), ofFloatColor(ofRandom(1.0f), ofRandom(1.0f), ofRandom(1.0f)), 0.f, 2.f, EASE_LINEAR );
-	//Tweenzor::addCompleteListener( Tweenzor::getTween(&_param), this, &testApp::onParamsAnimComplete);
+	Tweenzor::addParameter<float>(&_param, _param, ofRandom(100.0f), 0.f, 2.f, EASE_LINEAR );
+	Tweenzor::addParameter<ofFloatColor>(&_paramColor, (ofFloatColor)_paramColor.get(), ofFloatColor(ofRandom(1.0f), ofRandom(1.0f), ofRandom(1.0f)), 0.f, 2.f, EASE_LINEAR );
+	Tweenzor::addCompleteListener( Tweenzor::getTween(&_param), this, &testApp::onParamsAnimComplete);
 }
 
 //--------------------------------------------------------------
